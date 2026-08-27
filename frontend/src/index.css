@@ -1,111 +1,135 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+/* ============================================================
+   Design System (Tailwind v4, CSS-first)
+   Jedyne źródło prawdy dla kolorów i typografii aplikacji.
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+   ZASADA: domyślna paleta Tailwinda jest WYŁĄCZONA
+   (`--color-*: initial`). Korzystaj wyłącznie z tokenów poniżej —
+   klasy typu `bg-blue-600` czy `text-slate-500` celowo nie istnieją.
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+   Szybki przewodnik:
+     action-primary        (evergreen-500) → marka / „Zatwierdź i zapisz"
+     action-primary-hover  (evergreen-700) → hover / aktywny
+     action-accent         (amber-500)     → stan „AI proponuje" (karta podglądu)
+     action-danger         (danger-500)    → akcje destrukcyjne / błędy
+     brand-bg (neutral-50)    tło           txt-primary  (neutral-900) tekst główny
+     brand-border (neutral-200) linie       txt-secondary (neutral-500) daty/podpisy
+     cat-*                  → kolory kategorii na wykresach
+   ============================================================ */
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* ── Reset: wyłącz domyślną paletę Tailwinda ───────────────── */
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* ── Brand: evergreen ──────────────────────────────────────── */
+  --color-evergreen-50:  oklch(0.97 0.02 165);
+  --color-evergreen-100: oklch(0.94 0.035 165);
+  --color-evergreen-200: oklch(0.88 0.06 165);
+  --color-evergreen-300: oklch(0.80 0.08 165);
+  --color-evergreen-400: oklch(0.64 0.085 165);
+  --color-evergreen-500: oklch(0.50 0.085 165); /* ← primary */
+  --color-evergreen-600: oklch(0.45 0.09 165);
+  --color-evergreen-700: oklch(0.40 0.09 165);
+  --color-evergreen-800: oklch(0.34 0.075 165);
+  --color-evergreen-900: oklch(0.28 0.055 165);
+  --color-evergreen-950: oklch(0.22 0.04 165);
+
+  /* ── Akcent: amber ────────────────────────── */
+  --color-amber-50:  oklch(0.97 0.025 80);
+  --color-amber-100: oklch(0.94 0.05 78);
+  --color-amber-200: oklch(0.89 0.08 76);
+  --color-amber-300: oklch(0.83 0.11 74);
+  --color-amber-400: oklch(0.77 0.13 73);
+  --color-amber-500: oklch(0.72 0.13 72);
+  --color-amber-600: oklch(0.62 0.12 68);
+  --color-amber-700: oklch(0.52 0.105 62);
+  --color-amber-800: oklch(0.43 0.085 58);
+  --color-amber-900: oklch(0.36 0.065 55);
+  --color-amber-950: oklch(0.26 0.045 52);
+
+  /* ── Neutral: ciepły kamień (tła / tekst / linie) ──────────── */
+  --color-neutral-50:  oklch(0.985 0.006 95);  /* tło aplikacji */
+  --color-neutral-100: oklch(0.965 0.006 110);
+  --color-neutral-200: oklch(0.925 0.006 120); /* krawędzie */
+  --color-neutral-300: oklch(0.87 0.007 130);
+  --color-neutral-400: oklch(0.72 0.008 150);
+  --color-neutral-500: oklch(0.62 0.01 160);   /* daty / podpisy */
+  --color-neutral-600: oklch(0.50 0.011 160);
+  --color-neutral-700: oklch(0.42 0.012 160);  /* opisy */
+  --color-neutral-800: oklch(0.32 0.012 160);  /* dymek użytkownika */
+  --color-neutral-900: oklch(0.24 0.012 160);  /* tekst główny */
+  --color-neutral-950: oklch(0.17 0.01 160);
+
+  /* ── Danger: czerwień błędów (dograna do palety) ───────────── */
+  --color-danger-50:  oklch(0.96 0.015 25);
+  --color-danger-100: oklch(0.92 0.035 25);
+  --color-danger-200: oklch(0.86 0.07 25);
+  --color-danger-300: oklch(0.78 0.11 26);
+  --color-danger-400: oklch(0.68 0.16 26);
+  --color-danger-500: oklch(0.58 0.20 27); /* ← danger */
+  --color-danger-600: oklch(0.52 0.20 27);
+  --color-danger-700: oklch(0.46 0.18 27);
+  --color-danger-800: oklch(0.40 0.15 27);
+  --color-danger-900: oklch(0.34 0.11 27);
+  --color-danger-950: oklch(0.24 0.08 27);
+
+  /* ── Kolory danych: kategorie (wykresy) ────────────────────── */
+  --color-cat-food:      oklch(0.66 0.14 45);   /* jedzenie */
+  --color-cat-transport: oklch(0.60 0.12 245);  /* transport */
+  --color-cat-shop:      oklch(0.64 0.12 150);  /* zakupy */
+  --color-cat-bills:     oklch(0.72 0.12 88);   /* rachunki */
+  --color-cat-fun:       oklch(0.60 0.14 330);  /* rozrywka */
+  --color-cat-health:    oklch(0.65 0.10 195);  /* zdrowie */
+  --color-cat-other:     oklch(0.64 0.025 265); /* inne */
+
+  /* ── Tokeny semantyczne — UŻYWAJ ICH W UI ──────────────────── */
+  /* Powierzchnie i tekst */
+  --color-brand-bg:            var(--color-neutral-50);
+  --color-brand-surface:       var(--color-white);
+  --color-brand-surface-muted: var(--color-neutral-100);
+  --color-brand-border:        var(--color-neutral-200);
+  --color-txt-primary:         var(--color-neutral-900);
+  --color-txt-secondary:       var(--color-neutral-500);
+  --color-txt-muted:           var(--color-neutral-400);
+  --color-txt-on-brand:        var(--color-neutral-50); /* tekst na evergreen/danger */
+
+  /* Akcje */
+  --color-action-primary:       var(--color-evergreen-500);
+  --color-action-primary-hover: var(--color-evergreen-700);
+  --color-action-accent:        var(--color-amber-500);
+  --color-action-danger:        var(--color-danger-500);
+
+  /* Stany / alerty (kolor tekstu/ikony + tło powierzchni) */
+  --color-success:         var(--color-evergreen-600);
+  --color-success-surface: var(--color-evergreen-50);
+  --color-warning:         var(--color-amber-600);
+  --color-warning-surface: var(--color-amber-50);
+  --color-danger:          var(--color-danger-600);
+  --color-danger-surface:  var(--color-danger-50);
+  --color-info:            var(--color-neutral-600);
+  --color-info-surface:    var(--color-neutral-100);
+
+  /* ── Typografia ────────────────────────────────────────────── */
+  --font-sans: "Hanken Grotesk", system-ui, sans-serif;
+  --font-mono: "Spline Sans Mono", ui-monospace, monospace;
+}
+
+/* Bazowe style dokumentu oparte wyłącznie na tokenach */
+@layer base {
+  body {
+    margin: 0;
+    min-height: 100svh;
+    background-color: var(--color-brand-bg);
+    color: var(--color-txt-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-}
-
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
-}
-
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
 }
