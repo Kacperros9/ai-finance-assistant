@@ -1,18 +1,22 @@
-# Node / Frontend dependencies
+# Node / Frontend
 node_modules/
 dist/
 .env
 .env.local
 
-# Python / Backend dependencies
-__pycache__/
-*.pyc
-.venv/
-venv/
-env/
-.env/
+# Java / Gradle / Backend
+build/
+.gradle/
+*.class
+*.jar
+*.war
+bin/
+out/
+# Gradle wrapper musi trafić do repo (mimo reguły *.jar powyżej)
+!**/gradle/wrapper/gradle-wrapper.jar
 
 # IDE / OS Cache
 .vscode/
 .idea/
+*.iml
 .DS_Store
